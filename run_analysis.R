@@ -37,5 +37,5 @@
        tidyData <- cbind(subjectAll,select(yAll, activity),xAllMeanStd)
        tidyDataMeans <- summarise_each(group_by(tidyData, subject, activity), funs(mean))
        
-       write.table(tidyDataMeans, "tidyDataMeans.txt")
+       write.table(tidyDataMeans, "tidyDataMeans.txt", row.names = FALSE)
       
