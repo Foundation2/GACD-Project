@@ -15,11 +15,26 @@
 
 # Extracts only the measurements on the mean and standard deviation for each measurement. 
 
-        
+       features <- read.table("UCI HAR Dataset/features.txt") 
+       meanStdFeatures <- grep("mean|std", features$V2,ignore.case = TRUE)
+       xAllMeanStd <- xAll[,meanStdFeatures]
         
 # Uses descriptive activity names to name the activities in the data set
+       
+       activities <- read.table("UCI HAR Dataset/activity_labels.txt")
+       yAll$activity <- activities[yAll$V1,2]
+       colnames(subjectAll) <- "subject"
 
 # Appropriately labels the data set with descriptive variable names. 
+       
+       meanStdFeatureLabels <- as.character(features[meanStdFeatures,2])
+       colnames(xAllMeanStd)<- meanStdFeatureLabels
 
 # From the data set in step 4, creates a second, independent tidy data set with the
 # average of each variable for each activity and each subject.
+       
+       tidyData <- cbind(subjectAll,yAll$activity,xAllMeanStd)
+       require(dplyr)
+       tidyDataMeans <-summarise_each(group_by(tidyData, subject, yAll$activity), funs(mean))
+      
+       
