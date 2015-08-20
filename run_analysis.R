@@ -1,5 +1,5 @@
 
-# Merges the training and the test sets to create one data set.
+# Merges the training and the test sets to create one data set (6 files to 3 data frames).
 
         xTest <- read.table("UCI HAR Dataset/test/X_test.txt")
         xTrain <- read.table("UCI HAR Dataset/train/X_train.txt")
@@ -31,10 +31,11 @@
        colnames(xAllMeanStd)<- meanStdFeatureLabels
 
 # From the data set in step 4, creates a second, independent tidy data set with the
-# average of each variable for each activity and each subject.
+# average of each variable for each activity and each subject and output to text file.
        
-       tidyData <- cbind(subjectAll,yAll$activity,xAllMeanStd)
        require(dplyr)
-       tidyDataMeans <-summarise_each(group_by(tidyData, subject, yAll$activity), funs(mean))
-      
+       tidyData <- cbind(subjectAll,select(yAll, activity),xAllMeanStd)
+       tidyDataMeans <- summarise_each(group_by(tidyData, subject, activity), funs(mean))
        
+       write.table(tidyDataMeans, "tidyDataMeans.txt")
+      
