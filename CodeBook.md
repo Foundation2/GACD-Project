@@ -2,7 +2,7 @@ The data file tidyDataMeans contains the MEANS of 86 selected feature variables 
 
 subject: experiment subject identifier (integer 1 to 30)
 
-activity: descriptive label for subject's activity during experiment (factor with six levels)
+activity: descriptive label for subject's activity during experiment (factor with six levels).
 
         WALKING
         WALKING_UPSTAIRS
