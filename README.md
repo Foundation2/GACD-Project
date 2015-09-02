@@ -16,7 +16,8 @@ The run_analysis.R script file contains 5 commented sections, each corresponding
 
 Each component of the Test/Train dataset is read into R and assigned to a data frame. For each component of the data set (X, Y, subject) the Test and Train data are combined using the row bind function on the test and train data in the same sequence so that the resulting data frames xAll, yAll and subjectAll maintain corresponding data by row.
 
->       2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+>       2. Extracts only the measurements on the mean and standard deviation
+>for each measurement. 
 
 The full list of the 561 feature variables contained in the original data set is given in the features.txt file. For this step of the script the features.txt file is read in and the grep function is used with a Regular Expression to create an integer vector identifying the column numbers in the xAll data that contain feature variables with either of the literals: _mean_ or _std_ included in the name. This vector is then used to subset the xAll data into a new data frame xAllMeanStd that only includes these 86 columns.
 
@@ -24,11 +25,12 @@ The full list of the 561 feature variables contained in the original data set is
 
 The list of acivity codes and corresponding descriptions conatined in the activity_labels.txt file is read in and assigned to a data frame: activities. A new variable activity is then created in the yAll data frame formed from the activity name that corresponds to the existing activity code (the subject identifier variable in the subjectAll data frame is also given the column name subject).
 
-> 4.    Appropriately labels the data set with descriptive variable names. 
+>       4. Appropriately labels the data set with descriptive variable names. 
 
 The meanStdFeatures integer vector created in step 2 is used to index the features data frame and create a character vector, meanStdFeatureLabels, containing the 86 variable names now contained in the xAll data frame. The colnames argument is used to assign these to the xAll data frame as column names.
 
-> 5.    From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+>       5. From the data set in step 4, creates a second, independent tidy data set
+>with the average of each variable for each activity and each subject.
 
 The first step here is to require the dplyr package in case it is not already loaded. The cbind function is then used to combine the three elements of the data set: the subjectAll data frame, the activity name column of the yAll data frame and the xAllMeanStd data frame containing the 86 feature vectors containing either the text _mean_ or _std_. These three data frames contain data that corresponds by row and form a new data frame: tidyData. 
 
